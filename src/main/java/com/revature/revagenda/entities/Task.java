@@ -1,11 +1,10 @@
 package com.revature.revagenda.entities;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "tasks")
-public class Task implements Serializable {
+public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -16,7 +15,10 @@ public class Task implements Serializable {
     @Column
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column
+    private boolean completed;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
     public Task() {
@@ -25,12 +27,14 @@ public class Task implements Serializable {
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
+        this.completed = false;
     }
 
     public Task(User user, String name, String description) {
         this.user = user;
         this.name = name;
         this.description = description;
+        this.completed = false;
     }
 
     public Integer getId() {
@@ -63,5 +67,25 @@ public class Task implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", user=" + user +
+                '}';
     }
 }

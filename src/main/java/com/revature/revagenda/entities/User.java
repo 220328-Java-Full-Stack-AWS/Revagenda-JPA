@@ -3,8 +3,10 @@ package com.revature.revagenda.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users", schema = "public")
@@ -28,13 +30,15 @@ public class User {
 
     @Column
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Task> tasks;
+    //private List<Task> tasks;
+    private Set<Task> tasks;
 
     public User() {
+        this.tasks = new HashSet<>();
     }
 
     public User(String username, String password, String firstName, String lastName) {
-        this.tasks = new LinkedList<>();
+        this.tasks = new HashSet<>();
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -82,10 +86,12 @@ public class User {
     }
 
     public void addTask(Task task) {
+        task.setUser(this);
         this.tasks.add(task);
     }
 
     public void removeTask(Task task) {
+        task.setUser(null);
         this.tasks.remove(task);
     }
 
@@ -96,5 +102,24 @@ public class User {
             }
         }
         return null;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }

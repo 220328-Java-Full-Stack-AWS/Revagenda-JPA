@@ -1,11 +1,13 @@
 package com.revature.revagenda.beans.services;
 
+
 import com.revature.revagenda.beans.repositories.UserRepository;
 import com.revature.revagenda.dtos.AuthDto;
 import com.revature.revagenda.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -18,11 +20,11 @@ public class UserService {
     }
 
     public List<User> getAllUsers() {
-        return userRepository.getAll();
+        return userRepository.findAll();
     }
 
-    public User getUserByUsername(String username) {
-        return userRepository.getByUsername(username);
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     public User getUserById(Integer id ) {
@@ -34,7 +36,7 @@ public class UserService {
     }
 
     public User authenticateUser(AuthDto authDto) throws Exception {
-        User user = userRepository.getByUsername(authDto.getUsername());
+        User user = userRepository.findByUsername(authDto.getUsername());
         if(user != null && user.getPassword().equals(authDto.getPassword())) {
             return user;
         } else {
@@ -44,7 +46,7 @@ public class UserService {
     }
 
     public User update(User user) {
-        return userRepository.update(user);
+        return userRepository.save(user);
     }
 
 

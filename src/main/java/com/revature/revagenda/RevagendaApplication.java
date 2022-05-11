@@ -1,102 +1,52 @@
 package com.revature.revagenda;
 
+import com.revature.revagenda.beans.repositories.TaskRepository;
+import com.revature.revagenda.beans.repositories.UserRepository;
+import com.revature.revagenda.beans.services.TaskService;
+import com.revature.revagenda.beans.services.UserService;
 import com.revature.revagenda.entities.Task;
 import com.revature.revagenda.entities.User;
-import com.revature.revagenda.beans.services.StorageManager;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+
+import java.util.Set;
+
+//@EnableTransactionManagement  //not necessary here, spring boot applications assume transactional JpaRepositories
 @SpringBootApplication(scanBasePackages = "com.revature.revagenda.beans")
 public class RevagendaApplication {
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(RevagendaApplication.class, args);
 
-		/*
-		Here we are initializing our Hibernate session, and at this point because our hbm2ddl setting is set
-		to true, all tables are dropped and re-created.
-		 */
-		StorageManager storageManager = context.getBean(StorageManager.class);
-		storageManager.addEntity(Task.class);
-		storageManager.addEntity(User.class);
+//		UserRepository userRepo = context.getBean(UserRepository.class);
+//		TaskRepository taskRepo = context.getBean(TaskRepository.class);
 
-		context.start(); //send the start signal to all lifecycle hooks - it gets to our storage manager and repository beans
+		UserService userService = context.getBean(UserService.class);
+		TaskService taskService = context.getBean(TaskService.class);
 
+		User testUser = new User("testusername", "testpassword", "testfirstname", "testlastname");
+		Task testTask1 = new Task("one", "testTask1");
+		Task testTask2 = new Task("two", "testTask2");
+		Task testTask3 = new Task("three", "testTask3");
 
+		testUser.addTask(testTask1);
+		testUser.addTask(testTask2);
+		testUser.addTask(testTask3);
 
+		userService.save(testUser);
 
+		Set<Task> taskSet = testUser.getTasks();
+		for (Task task : taskSet) {
+			System.out.println(task.getId());
+			task.setCompleted(true);
+		}
 
-//		Session session = storageManager.getSession(); //once the start signal is sent and the lifecycle hooks are invoked, our sessions are valid
-//
-//		//Get references to our repository beans. Keep in mind these aren't JPA repositories.
-//		UserRepository userRepository = context.getBean(UserRepository.class);
-//		TaskRepository taskRepository = context.getBean(TaskRepository.class);
-//
-//		/*
-//		Here we begin doing DML and inserting (saving) stuff into the database. We begin the transaction, make the
-//		changes, and commit it.
-//		 */
-//		//Transaction tx = session.beginTransaction(); //moved the transaction statements into the save() method.
-//
-//		User kyle = new User("kplummer", "password", "Kyle", "Plummer");
-//		User giorgi = new User("gamirajibi", "password", "Giorgi", "Amirajibi");
-//		User kenneth = new User("kstrohm", "password", "Kenneth", "Strohm");
-//
-//		kyle.addTask(new Task(kyle, "oilchange", "Get your oil changed."));
-//		kyle.addTask(new Task(kyle, "inspection", "Get your car inspected."));
-//
-//		session.save(kyle);
-//		session.save(giorgi);
-//		session.save(kenneth);
-//
-//		//tx.commit(); //moved the transaction statements into the save() method.
-//
-//
-//
-//		Transaction tx = session.beginTransaction(); //This transaction is necessary to force a flush of the cache
-//		Task newTask = new Task(kyle,"Refactor Revagenda", "re-write revagenda to add in hibernate.");
-//		kyle.addTask(newTask);
-//		tx.commit();  //notice nowhere here are we calling save(). kyle is already persistent, and we just need to make sure the cache flushes.
-//
-//
-//
-//		/*
-//		This method uses native SQL query to get all users from the users table.
-//		 */
-//		List<User> users = userRepository.getAll();
-//		for (User u : users) {
-//			System.out.println("Username: " + u.getUsername());
-//		}
-//
-//		/*
-//		This method uses HQL to query by unique ID
-//		 */
-//		User user1 = userRepository.getById(1);
-//		System.out.println("User 1: " + user1.getUsername());
-//
-//
-//		/*
-//		This method uses the criteriabuilder to query for a unique user object based on unique username
-//		 */
-//		User userKstrohm = userRepository.getByUsername("kstrohm");
-//		System.out.println("User kstrohm: " + userKstrohm.getUsername() + ", " + userKstrohm.getId());
-//
-//
-//
-//		Task task = taskRepository.getById(1);
-//		System.out.println("Task: " + task.getName() + ", " + task.getDescription());
-//
-//		List<Task> taskList = taskRepository.getAll();
-//		for (Task t : taskList) {
-//			System.out.println("Task: " + t.getDescription());
-//		}
-//
-//		Task task2 = taskRepository.getById(2);
-//		System.out.println("Task 2: " + task2.getDescription());
-//
-//
-//
+		userService.save(testUser);
+
+		testUser.getTaskByName("one").setCompleted(false);
+		userService.save(testUser);
 
 	}
 
