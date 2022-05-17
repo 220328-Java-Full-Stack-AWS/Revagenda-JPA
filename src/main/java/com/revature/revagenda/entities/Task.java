@@ -1,5 +1,7 @@
 package com.revature.revagenda.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,6 +21,7 @@ public class Task {
     private boolean completed;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonBackReference
     private User user;
 
     public Task() {
@@ -35,6 +38,13 @@ public class Task {
         this.name = name;
         this.description = description;
         this.completed = false;
+    }
+
+    public Task(Integer id, String name, String description, boolean completed) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.completed = completed;
     }
 
     public Integer getId() {
@@ -85,7 +95,6 @@ public class Task {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", user=" + user +
                 '}';
     }
 }

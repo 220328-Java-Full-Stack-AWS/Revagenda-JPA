@@ -1,0 +1,22 @@
+<p>content works!</p>
+
+One way data binding with string interpolation:
+<p>{{str}}</p>
+
+This will display the property "str" from the component class. As this text changes, it causes the template/view to
+re-render with the most up-to-date data.
+
+
+Below we have two-way data binding on the same string property. As the text in the field changes,
+an event is sent to the component and this event updates the value of the "str" property. As this occurs
+the component is re-rendered to show the up-to-date data.
+<br>
+<input type="text" name="str" [(ngModel)]="str">
+<input type="submit" name="submitButton" (click)="onClick()">
+<br>
+Once we click the submit button, it invokes a function in our component which reverses the "str" string.
+
+Note that it changes both in the html text as well as inside the input field. This is thanks to the 
+[(Banana in a box)] syntax, which bind the data one-way from template to component, as well as the other way 
+from component to template. Two-way data binding.
+<!-- <input type="submit" name="testButton" (click)="testFunction()"> -->

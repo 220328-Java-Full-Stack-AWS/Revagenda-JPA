@@ -1,6 +1,7 @@
 package com.revature.revagenda.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -30,7 +31,7 @@ public class User {
 
     @Column
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    //private List<Task> tasks;
+    @JsonManagedReference
     private Set<Task> tasks;
 
     public User() {
@@ -44,6 +45,8 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+
 
     public Integer getId() {
         return id;
@@ -120,6 +123,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", tasks=" + tasks +
                 '}';
     }
 }
