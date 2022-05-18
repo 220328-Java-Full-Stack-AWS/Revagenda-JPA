@@ -1,5 +1,8 @@
+import { TemplateLiteralElement } from '@angular/compiler';
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { TempretureService } from './../tempreture.service';
+
 
 @Component({
   selector: 'app-fahrenheit-component',
@@ -8,20 +11,17 @@ import { EventEmitter } from '@angular/core';
 })
 export class FahrenheitComponentComponent implements OnInit {
 
-
-
-  @Input()
-  farenheitTemp: number = 0;
-
-  //(farenheitEmitter)= 'farehneitChange($event)'
-  @Output()
-  farenheitEmitter: EventEmitter<number> = new EventEmitter<number>();
-
-  emitFarenheitTemp(): void {
-    this.farenheitEmitter.emit(this.farenheitTemp);
+  constructor(_temperatureService: TempretureService) {
+    this.temperatureService = _temperatureService
+    this.temperatureService.register("farenheit", (temperature: number) => {this.farenheitTemp = temperature});
   }
 
-  constructor() { }
+  temperatureService: TempretureService;
+  farenheitTemp: number = 0;
+
+  publish() {
+    this.temperatureService.publish("farenheit", this.farenheitTemp);
+  }
 
   ngOnInit(): void {
   }

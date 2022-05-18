@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { TempretureService } from './../tempreture.service';
 
 @Component({
   selector: 'app-celsius-component',
@@ -8,18 +9,17 @@ import { EventEmitter } from '@angular/core';
 })
 export class CelsiusComponentComponent implements OnInit {
 
-  @Input()
-  celsiusTemp: number = 0;
-
-  //(celsiusEmitter)= 'celsiusChange($event)'
-  @Output()
-  celsiusEmitter: EventEmitter<number> = new EventEmitter<number>();
-
-  emitCelsiusTemp(): void {
-    this.celsiusEmitter.emit(this.celsiusTemp);
+  constructor(_temperatureService: TempretureService) { 
+    this.temperatureService = _temperatureService;
+    this.temperatureService.register("celsius", (temperature: number) => {this.celsiusTemp = temperature});
   }
 
-  constructor() { }
+  temperatureService: TempretureService;
+  celsiusTemp: number = 0;
+
+  publish() {
+    this.temperatureService.publish("celsius", this.celsiusTemp);
+  }
 
   ngOnInit(): void {
   }
