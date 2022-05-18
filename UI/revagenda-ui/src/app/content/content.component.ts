@@ -14,14 +14,15 @@ export class ContentComponent implements OnInit {
 //(farenheitEmitter)= 'farehneitChanged($event)'
 //(celsiusEmitter)= 'celsiusChanged($event)'
 
-  farenheitChanged(f: number): void {
-    //F = C*(9/5) + 32
-    this.celsiusTemp = (f - 32) * (5/9);
-  }
+//This stuff is no longer in use, we moved it to the temperature service
+  // farenheitChanged(f: number): void {
+  //   //F = C*(9/5) + 32
+  //   this.celsiusTemp = (f - 32) * (5/9);
+  // }
 
-  celsiusChanged(c: number): void {
-    this.farenheitTemp = c * (9/5) + 32
-  }
+  // celsiusChanged(c: number): void {
+  //   this.farenheitTemp = c * (9/5) + 32
+  // }
 
 
   onClick(): void {

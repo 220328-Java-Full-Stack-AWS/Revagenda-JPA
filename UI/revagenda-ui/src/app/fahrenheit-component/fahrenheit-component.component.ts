@@ -11,6 +11,8 @@ import { TempretureService } from './../tempreture.service';
 })
 export class FahrenheitComponentComponent implements OnInit {
 
+  //This is basically the same thing as autowiring in spring. Angular is grabbing the singleton
+  //of this service class and dependency injecting it by type for us.
   constructor(_temperatureService: TempretureService) {
     this.temperatureService = _temperatureService
     this.temperatureService.register("farenheit", (temperature: number) => {this.farenheitTemp = temperature});
