@@ -8,6 +8,21 @@ import { Component, OnInit } from '@angular/core';
 export class ContentComponent implements OnInit {
 
   str: string = "test";
+  celsiusTemp: number = 0;
+  farenheitTemp: number = 32;
+
+//(farenheitEmitter)= 'farehneitChanged($event)'
+//(celsiusEmitter)= 'celsiusChanged($event)'
+
+  farenheitChanged(f: number): void {
+    //F = C*(9/5) + 32
+    this.celsiusTemp = (f - 32) * (5/9);
+  }
+
+  celsiusChanged(c: number): void {
+    this.farenheitTemp = c * (9/5) + 32
+  }
+
 
   onClick(): void {
     this.str = this.reverseString(this.str);
@@ -18,9 +33,6 @@ export class ContentComponent implements OnInit {
     return str.split("").reverse().join("");
   }
 
-  // testFunction(param: any): void {
-  //   console.log(param)
-  // }
 
 
   constructor() { }

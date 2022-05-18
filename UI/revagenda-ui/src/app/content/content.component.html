@@ -1,5 +1,4 @@
-<p>content works!</p>
-
+<hr>
 One way data binding with string interpolation:
 <p>{{str}}</p>
 
@@ -20,3 +19,10 @@ Note that it changes both in the html text as well as inside the input field. Th
 [(Banana in a box)] syntax, which bind the data one-way from template to component, as well as the other way 
 from component to template. Two-way data binding.
 <!-- <input type="submit" name="testButton" (click)="testFunction()"> -->
+<hr>
+
+<h1> Ferenheit-Celsius Converter</h1>
+<app-fahrenheit-component [farenheitTemp]="farenheitTemp" (farenheitEmitter)= 'farenheitChanged($event)'></app-fahrenheit-component>
+<br>
+<app-celsius-component [celsiusTemp]="celsiusTemp" (celsiusEmitter)= 'celsiusChanged($event)'></app-celsius-component>
+TODO: Do some science here later about the parameter identifiers..

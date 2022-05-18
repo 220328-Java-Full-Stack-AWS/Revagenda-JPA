@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { TaskListComponent } from './task-list/task-list.component';
+import { FahrenheitComponentComponent } from './fahrenheit-component/fahrenheit-component.component';
+import { CelsiusComponentComponent } from './celsius-component/celsius-component.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { TaskListComponent } from './task-list/task-list.component';
     NavbarComponent,
     ContentComponent,
     TaskFormComponent,
-    TaskListComponent
+    TaskListComponent,
+    FahrenheitComponentComponent,
+    CelsiusComponentComponent
   ],
   imports: [
     BrowserModule,

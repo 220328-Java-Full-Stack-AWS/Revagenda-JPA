@@ -1,0 +1,6 @@
+<h3>Farenheit</h3>
+<h4>Tempreture: {{farenheitTemp}} °F</h4>
+<br><br>
+<input type="text" name="temp" [(ngModel)]="farenheitTemp">
+<br>
+<input type="submit" name="submit" (click)="emitFarenheitTemp()">
