@@ -10,6 +10,7 @@ import { TaskFormComponent } from './task-form/task-form.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { FahrenheitComponentComponent } from './fahrenheit-component/fahrenheit-component.component';
 import { CelsiusComponentComponent } from './celsius-component/celsius-component.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CelsiusComponentComponent } from './celsius-component/celsius-component
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

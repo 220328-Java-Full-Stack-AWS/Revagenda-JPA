@@ -1,4 +1,6 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { RemoteApiService } from './../remote-api.service';
 
 @Component({
   selector: 'app-task-list',
@@ -6,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent implements OnInit {
+  constructor(private api: RemoteApiService) { }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  test() {
+    //this.api.test().subscribe((data: any) => {console.log("returned data: ", data)})
+    this.api.testTaskGet().subscribe((data: any) => { console.log("returned data: ", data) });
   }
 
+
+
+  ngOnInit(): void {
+
+  }
+
+
 }
+
