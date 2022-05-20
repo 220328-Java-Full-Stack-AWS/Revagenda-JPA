@@ -18,8 +18,24 @@ export class FahrenheitComponentComponent implements OnInit {
     this.temperatureService.register("farenheit", (temperature: number) => {this.farenheitTemp = temperature});
   }
 
+  
+
   temperatureService: TempretureService;
   farenheitTemp: number = 0;
+
+
+  //send the data to the celsius component via retrieving it's callback function
+  data: String = 'This is the data';
+  test() {
+    console.log("Function type: ", typeof this.temperatureService.orderFunction)
+    this.temperatureService.orderFunction(this.data);
+    //this.temperatureService.invokeOrderFunction(this.data);
+  }
+
+  //or we can just set a value in the service and pick it up on the other side
+  test2() {
+    this.temperatureService.testData = this.data;
+  }
 
   publish() {
     this.temperatureService.publish("farenheit", this.farenheitTemp);

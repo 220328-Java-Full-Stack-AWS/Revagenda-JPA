@@ -48,5 +48,9 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public void thisIsAVoidMethod(String test) {
+        System.out.println(test);
+    }
+
 
 }

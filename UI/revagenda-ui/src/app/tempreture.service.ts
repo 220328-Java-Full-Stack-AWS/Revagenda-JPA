@@ -24,6 +24,14 @@ export class TempretureService {
 
   handlers: Handler[] = [];
 
+
+  //This is another method where instead of a full pub/sub sort of pattern, we just pass a "mutator" or a "setter"
+  //orderFunction will hold the function, and these other function can be used to set it, get it, or invoke it.
+  orderFunction!: Function;
+  //or we can just store the data here and get/set it
+  testData: String = '';
+
+
   convertFtoC(temperature: number): void {
     console.log("convertKtoC");
     this.temperatureCelsius = (temperature - 32) * (5 / 9);

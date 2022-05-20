@@ -4,3 +4,9 @@ Tempreture: {{celsiusTemp}} °C
 <input type="text" name="temp" [(ngModel)]="celsiusTemp">
 <br>
 <input type="submit" name="submit" (click)="publish()">
+<br>
+<h1>test data: {{testData}}</h1>
+<input type="submit" name="submit" value="publish callback" (click)="test()">
+<input type="submit" name="submit" value="test2" (click)="test2()">
+<h1>Other test: {{testData2}}</h1>
+<h1>last test: {{temperatureService.testData}}</h1>

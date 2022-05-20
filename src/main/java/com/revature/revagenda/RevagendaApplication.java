@@ -1,14 +1,18 @@
 package com.revature.revagenda;
 
+import com.revature.revagenda.beans.services.LoggingService;
 import com.revature.revagenda.beans.services.TaskService;
 import com.revature.revagenda.beans.services.UserService;
 import com.revature.revagenda.entities.Task;
 import com.revature.revagenda.entities.User;
+import com.revature.revagenda.enums.LoggingLevel;
+import com.revature.revagenda.enums.LoggingMode;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 
+import java.io.IOException;
 import java.util.Set;
 
 //@EnableTransactionManagement  //not necessary here, spring boot applications assume transactional JpaRepositories
@@ -21,7 +25,7 @@ Spring boot also assumes a very opinionated configuration.
 @SpringBootApplication(scanBasePackages = "com.revature.revagenda.beans")
 public class RevagendaApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		/*
 		Here we launch out spring application, it runs in it's own thread so the rest of main continues executing
 		after the spring application has initialized and assigned it's context to the reference below.
@@ -35,6 +39,10 @@ public class RevagendaApplication {
 		 */
 		UserService userService = context.getBean(UserService.class);
 		TaskService taskService = context.getBean(TaskService.class);
+
+		LoggingService loggingService = context.getBean(LoggingService.class);
+		loggingService.setLoggingThreshold(LoggingLevel.INFO); //log level 1 - info and everything greater
+		loggingService.setLoggingMode(LoggingMode.DATASOURCE); //log mode 1 - file logging
 
 		/*
 		Now we set up our test objects. The three tasks are all associated with the user and the user has a set<Task> which
@@ -89,6 +97,16 @@ public class RevagendaApplication {
 		automatically have transactional behavior. If we wanted to adjust this behavior, like
 		changing isolation level or propagation strategy we would need to use the @Transactional annotation
 		 */
+
+
+		System.out.println("logging a message...");
+		loggingService.log(LoggingLevel.WARNING, "message");
+
+		try {
+			throw new Exception("This is an exception!");
+		} catch(Exception e) {
+			loggingService.log(e.getMessage(), e);
+		}
 
 	}
 

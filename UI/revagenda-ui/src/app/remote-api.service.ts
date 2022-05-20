@@ -13,7 +13,12 @@ export class RemoteApiService {
 
   postNewTask(uri: string, body: object, options: object): Observable<any> {
     console.log("POST: ", this.baseUrl, body, options)
-    return this.http.post<any>(this.baseUrl, JSON.stringify(body), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
+    return this.http.post<any>(this.baseUrl, JSON.stringify(body),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('anotherheader', 'headervalue') //chain additional headers with further .set() calls
+      })
       .pipe(
         retry(3),
         catchError(this.errorHandler)
@@ -51,7 +56,7 @@ export class RemoteApiService {
     return throwError(() => new Error(errorMessage));
   }
 
-  
+
 
 }
 
