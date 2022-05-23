@@ -16,7 +16,7 @@ phases:
   build:
     commands:
       - echo ============================build================================
-      - mvn package -DskipTests
+      - mvn package -q -DskipTests
       - cd UI/revagenda-ui
       - npm install
       - npm install -g @angular/cli
@@ -26,7 +26,7 @@ phases:
     commands:
       - echo ============================post-build================================
       - cd UI/revagenda-ui/dist/revagenda-ui
-      - aws s3 cp -r ./* s3://revagenda-jpa-ui/
+      - aws s3 cp -r "./*" "s3://revagenda-jpa-ui/"
       - cd ../../../..
       - pwd
       - mv target/revagenda-*.*.war ROOT.war
