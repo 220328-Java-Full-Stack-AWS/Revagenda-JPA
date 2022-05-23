@@ -21,6 +21,7 @@ phases:
       - cd UI/revagenda-ui
       - pwd
       - ls -al
+      - npm install
       - ng build
       - ls -al
       - cd ../..
