@@ -22,6 +22,7 @@ phases:
       - pwd
       - ls -al
       - npm install
+      - npm install -g @angular/cli
       - ng build
       - ls -al
       - cd ../..
