@@ -26,7 +26,7 @@ phases:
     commands:
       - echo ============================post-build================================
       - cd UI/revagenda-ui/dist/revagenda-ui
-      - aws s3 cp "*" "s3://revagenda-jpa-ui/" --recursive
+      - aws s3 cp "./" "s3://revagenda-jpa-ui/" --recursive
       - cd ../../../..
       - pwd
       - mv target/revagenda-*.*.war ROOT.war
