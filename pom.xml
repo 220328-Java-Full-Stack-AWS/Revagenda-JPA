@@ -12,7 +12,6 @@
 	<groupId>com.revature</groupId>
 	<artifactId>revagenda</artifactId>
 	<version>0.1</version>
-
 	<packaging>war</packaging>
 	<name>revagenda</name>
 	<description>A new version of Revagenda with spring boot, webMVC and hibernate</description>

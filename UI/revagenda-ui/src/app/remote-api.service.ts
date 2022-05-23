@@ -35,7 +35,9 @@ export class RemoteApiService {
   }
 
   testTaskGet(): Observable<any> {
-    return this.http.get<object>("http://localhost:8080/tasks/1", { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
+    return this.http.get<object>("http://localhost:8080/tasks/1", 
+    {observe: 'response', 
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
       .pipe(
         retry(1),
         catchError(this.errorHandler)

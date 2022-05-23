@@ -5,6 +5,13 @@ import com.revature.revagenda.entities.User;
 
 import java.util.LinkedList;
 import java.util.List;
+
+
+/*
+This was example code to show how we can build a DTO which contains other objects nested within, so that we could
+for instance send multiple objects in a single request or response.
+ */
+
 //JSON Request body example:
 /*
 {

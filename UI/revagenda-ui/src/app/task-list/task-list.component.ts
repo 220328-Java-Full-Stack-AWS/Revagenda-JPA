@@ -17,7 +17,10 @@ export class TaskListComponent implements OnInit {
 
 
 
+
+
   ngOnInit(): void {
+    this.api.testTaskGet().subscribe((data: any) => {console.log("returned data: ", data)})
 
   }
 
