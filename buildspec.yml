@@ -22,6 +22,10 @@ phases:
   post_build:
     commands:
       - echo ============================post-build================================
+      - pwd   # thses next few lines are fact-finding, looking for potential problems with the directory structure if the cd fails.
+      - ls -al
+      - ls -al /UI
+      - ls -al /UI/revagenda-ui
       - cd UI/revagenda-ui/dist/revagenda-ui #moving back down into the location of our UI build artifacts
       - aws s3 cp "./" "s3://revagenda-jpa-ui/" --recursive #copying all files in this location to the static hosting S3 bucket
       - cd ../../../.. #mopving up 4 directories to get back into the source repo root
