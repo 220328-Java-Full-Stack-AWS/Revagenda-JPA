@@ -9,7 +9,7 @@ phases:
       - echo ============================pre-build================================
       - aws s3 cp s3://rev-secret-bucket/hibernate.properties src/main/resources/hibernate.properties
       - aws s3 cp s3://rev-secret-bucket/application.properties src/main/resources/application.properties
-      - aws s3 rm "s3://revagenda-jpa-ui/" --recursive #This is not working... maybe now?
+      - aws s3 rm "s3://revagenda-jpa-ui/" --recursive #This removes old files from the bucket to clear them out
   build:
     commands:
       - echo ============================build================================
