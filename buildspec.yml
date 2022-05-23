@@ -6,19 +6,33 @@ phases:
       java: corretto11
   pre_build:
     commands:
+      - echo ============================pre-build================================
       - pwd
       - ls -al
       - aws s3 cp s3://rev-secret-bucket/hibernate.properties src/main/resources/hibernate.properties
       - aws s3 cp s3://rev-secret-bucket/application.properties src/main/resources/application.properties
       - ls -al
       - ls -al src/main/resources/
+      - aws s3 rm --recursive "s3://revagenda-jpa-ui/*"
   build:
     commands:
+      - echo ============================build================================
       - mvn package -DskipTests
+      - cd UI/revagenda-ui
+      - pwd
+      - ls -al
+      - ng build
+      - ls -al
   post_build:
     commands:
+      - echo ============================post-build================================
       - ls -al
       - ls -al target/
+      - ls -al dist/revagenda-ui
+      - cd dist/revagenda-ui
+      - aws s3 cp ./* s3://revagenda-jpa-ui/*
+      - cd ../../../..
+      - pwd
       - mv target/revagenda-*.*.war ROOT.war
       - ls -al
 artifacts:
