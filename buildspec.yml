@@ -23,13 +23,14 @@ phases:
       - ls -al
       - ng build
       - ls -al
+      - cd ../..
   post_build:
     commands:
       - echo ============================post-build================================
       - ls -al
       - ls -al target/
       - ls -al dist/revagenda-ui
-      - cd dist/revagenda-ui
+      - cd UI/revagenda-ui/dist/revagenda-ui
       - aws s3 cp ./* s3://revagenda-jpa-ui/*
       - cd ../../../..
       - pwd
