@@ -37,8 +37,10 @@ export class RemoteApiService {
 
   testTaskGet(): Observable<any> {
     return this.http.get<object>("Revagendakp-env.eba-mkadq2gc.us-east-1.elasticbeanstalk.com/tasks/1",
-    {observe: 'response',
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
+      {
+        observe: 'response',
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      })
       .pipe(
         retry(1),
         catchError(this.errorHandler)
