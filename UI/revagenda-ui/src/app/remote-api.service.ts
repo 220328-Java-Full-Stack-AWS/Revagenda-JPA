@@ -13,6 +13,7 @@ export class RemoteApiService {
   constructor(private http: HttpClient) { }
 
   postNewTask(uri: string, body: object, options: object): Observable<any> {
+    console.log("WE GOT THE CODE")
     console.log("POST: ", this.baseUrl, body, options)
     return this.http.post<any>(this.baseUrl, JSON.stringify(body),
       {
